@@ -23,8 +23,10 @@ Route::get('/', function () {
 
 Route::get('/search', function () {
     //return view('welcome');
-    return view('find-hotel');
-});
+    return view('find-hotel', [
+        "hotels" => \App\Models\Hotel::all(),
+    ]);
+})->name("hotel.search");
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
@@ -48,3 +50,5 @@ Route::prefix('/admin')->middleware(['auth:sanctum', 'verified'])->group(functio
     Route::get("hotel/{hotel}/room/{room}/booking", [BookingController::class, "index"])->name("booking.index");
 
 });
+
+Route::get("/Hotel/{hotel}", [HotelController::class, "show"])->name("hotel.show");

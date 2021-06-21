@@ -20,6 +20,7 @@ class CreateHotelsTable extends Migration
             $table->string("country")->nullable();
             $table->string("state")->nullable();
             $table->string("address")->nullable();
+            $table->text("photo_path")->nullable();
             $table->unsignedBigInteger("user_id");
             $table->timestamps();
         });

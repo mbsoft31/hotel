@@ -20,7 +20,7 @@ class CreateRoomsTable extends Migration
             $table->integer("bed_count")->default(1);
             $table->integer("floor_number")->default(0);
             $table->string("description")->nullable();
-            $table->string("image")->nullable();
+            $table->text("photo_path")->nullable();
 
             $table->unsignedBigInteger("user_id");
             $table->unsignedBigInteger("hotel_id");

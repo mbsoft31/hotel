@@ -1,46 +1,51 @@
 <x-guest-layout>
 
-    <div class="min-h-screen flex flex-col sm:justify-centers items-center pt-6 sm:pt-0 bg-gray-100">
-        <div x-data="{show:false}" class="relative inline-block text-left">
-            <div>
-                <button x-on:click="show = !show" type="button" class="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500" id="menu-button" aria-expanded="true" aria-haspopup="true">
-                    Options
-                    <!-- Heroicon name: solid/chevron-down -->
-                    <svg class="-mr-1 ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                    </svg>
-                </button>
+    <div class="bg-pink-600 h-88">
+        <div class="flex items-end w-full h-full bg-contain bg-no-repeat bg-right bg-opacity-0 md:bg-opacity-100" style="background-image: url('{{ asset('images/doctor-female.png') }}')">
+            <div class="block px-10 py-10 max-w-lg space-y-6">
+                <h1 class="text-5xl text-white font-serif font-bold tracking-wider leading-10">
+                    {{ __("Hotel Finder") }}
+                </h1>
+                <div class="text-lg text-white">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem ipsa maiores nostrum pariatur sit tempore.
+                </div>
+                <div></div>
             </div>
+        </div>
+    </div>
 
-            <!--
-              Dropdown menu, show/hide based on menu state.
-
-              Entering: "transition ease-out duration-100"
-                From: "transform opacity-0 scale-95"
-                To: "transform opacity-100 scale-100"
-              Leaving: "transition ease-in duration-75"
-                From: "transform opacity-100 scale-100"
-                To: "transform opacity-0 scale-95"
-            -->
-            <div
-                x-show="show" @click.away="show = false"
-                class="origin-top-left absolute left-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
-                <div class="py-1" role="none">
-                    <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" -->
-                    <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-0">Edit</a>
-                    <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-1">Duplicate</a>
-                </div>
-                <div class="py-1" role="none">
-                    <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-2">Archive</a>
-                    <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-3">Move</a>
-                </div>
-                <div class="py-1" role="none">
-                    <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-4">Share</a>
-                    <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-5">Add to favorites</a>
-                </div>
-                <div class="py-1" role="none">
-                    <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-6">Delete</a>
-                </div>
+    <div class="relative">
+        <div class="relative w-full max-w-3xl mx-auto -mt-10">
+            <div class="bg-white w-full px-8 pt-6 pb-8 space-y-4 rounded-md shadow">
+                <x-jet-label for="search" value="{{ __('Search for Hotel') }}" class="text-xl tracking-wide" />
+                <x-input.text id="search" placeholder="Search for name, address" class="w-full text-xl border border-gray-300 focus:border-pink-300 outline-none focus:ring-offset-1 focus:ring-2 focus:ring-pink-500"/>
+            </div>
+        </div>
+        <div id="results" class="relative w-full max-w-3xl mt-1.5 mx-auto">
+            <div class="bg-white w-full px-4 pt-6 pb-8 rounded-md shadow">
+                @foreach($hotels as $hotel)
+                    <div class="px-4 py-4 border border-gray-300">
+                        <div class="flex items-center space-x-6">
+                            <div>
+                                <img class="w-16 h-16 rounded-full object-center object-cover" src="{{$hotel->photo_url}}" alt="hotel-{{$hotel->id}}">
+                            </div>
+                            <div class="flex-grow align-center">
+                                <div class="flex items-center text-lg font-semibold tracking-wider text-gray-800">
+                                    <a href="{{ route("hotel.show", $hotel) }}" class="flex-grow text-pink-600 hover:text-pink-700">{{ $hotel->name }}</a>
+                                    <a href="{{ route("hotel.show", $hotel) }}" class="px-2 py-1.5 font-semibold tracking-wider text-pink-600 rounded-md border border-transparent hover:text-pink-700 hover:border-pink-700">
+                                        {{ __("See Hotel") }}
+                                    </a>
+                                </div>
+                                <div class="block text-sm tracking-widest text-gray-600">
+                                    {{ $hotel->address }}
+                                </div>
+                                <div class="mt-4 block text-sm tracking-widest text-gray-600">
+                                    {!! $hotel->description !!}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
             </div>
         </div>
     </div>

@@ -64,11 +64,13 @@ class HotelController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return Response
+     * @return Application|Factory|View|Response
      */
-    public function show($id)
+    public function show(Hotel $hotel)
     {
-        //
+        return view("hotel.show", [
+            "hotel" => $hotel,
+        ]);
     }
 
     /**
