@@ -19,6 +19,7 @@ class CreateBookingsTable extends Migration
             $table->unsignedBigInteger("room_id");
             $table->unsignedBigInteger("user_id");
             $table->dateTime("start");
+            $table->unsignedInteger("night_count");
             $table->dateTime("end")->nullable();
             $table->string("status")->default("pending")->nullable();
             $table->json("meta")->nullable();

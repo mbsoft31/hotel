@@ -53,4 +53,9 @@ Route::prefix('/admin')->middleware(['auth:sanctum', 'verified'])->group(functio
 
 });
 
+Route::get("/register/guest", function () {
+
+})->name("auth.register.guest");
+
 Route::get("/hotel/{hotel}", [HotelController::class, "show"])->name("hotel.show");
+

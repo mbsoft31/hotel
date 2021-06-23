@@ -28,7 +28,7 @@ class UpdateHotel
     {
         if ( ! Auth::check() ) return "not auth"; // checks if the user is authenticated
 
-        //if ( ! Auth::user()->hasPermissionTo('update hotel') ) return "no permission"; // checks if the user has permission to create hotel
+        if ( ! Auth::user()->hasPermissionTo('update hotel') ) return "no permission"; // checks if the user has permission to create hotel
 
         $validated_data = Validator::make($inputs, $this->rules)->validate();
 

@@ -50,12 +50,17 @@ class HotelController extends Controller
      *
      * @param Request $request
      * @return Response
+     * @throws ValidationException
      */
     public function store(Request $request)
     {
         if ( ! Auth::user()->hasRole("admin") ) abort(403, "You're not admin");
 
-        $hotel = (new CreateHotel())->create($request->all());
+        try {
+            $hotel = (new CreateHotel())->create($request->all());
+        } catch (ValidationException $e) {
+            dd($e->errors());
+        }
 
         return redirect()->route('hotel.index');
     }
