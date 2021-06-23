@@ -116,10 +116,12 @@ class HotelController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return Response
+     * @return RedirectResponse|Response
      */
-    public function destroy($id)
+    public function destroy(Hotel $hotel)
     {
-        //
+        if ( ! Auth::user()->hasRole("admin") ) abort(403, "You're not admin");
+        $hotel->delete();
+        return redirect()->route('hotel.index');
     }
 }

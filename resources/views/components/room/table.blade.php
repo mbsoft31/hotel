@@ -24,9 +24,11 @@
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         {{ __('Floor number') }}
                         </th>
+                        @can(["update room", "destroy room"])
                         <th scope="col" class="relative px-6 py-3">
                             <span class="sr-only">{{ __('Actions') }}</span>
                         </th>
+                        @endcan
                     </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
@@ -50,9 +52,12 @@
                             <td class="px-6 py-4 text-sm text-gray-500">
                             {{ $room->floor_number }}
                             </td>
+                            @can(["update room", "destroy room"])
                             <td class="px-6 py-4 space-x-4 whitespace-nowrap text-right text-sm font-medium">
                                 <a href="{{route("room.edit", compact("room", "hotel"))}}" class="text-green-600 hover:text-green-900">Edit</a>
+                                <a href="{{route("room.destroy", compact("room", "hotel"))}}" class="text-red-600 hover:text-red-900">Delete</a>
                             </td>
+                            @endcan
                         </tr>
                     @endforeach
 

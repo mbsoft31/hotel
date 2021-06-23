@@ -18,11 +18,11 @@
         <div class="mt-8 flex items-center justify-center">
 
             <div class="w-full max-w-5xl mx-auto">
-                <div class="w-full px-6 py-2 bg-white rounded-md shadow-md">
+                <div class="w-full px-6 py-2">
 
                     <div class="flex justify-end items-center px-6 py-2">
 
-                        <a href="{{route("room.create", $hotel)}}" class="block px-4 py-2 border rounded shadow text-gray-100 bg-blue-500 hover:bg-blue-600 hover:text-white focus:text-white focus:outline-none focus:ring-blue-600 focus:ring-2">
+                        <a href="{{route("room.create", $hotel)}}" class="block px-2.5 py-2 border rounded-lg shadow-sm text-sm text-gray-100 bg-indigo-600 hover:bg-indigo-600 hover:text-white focus:text-white focus:outline-none focus:ring-indigo-600 focus:ring-2">
                             {{ __('Create new') }}
                         </a>
 
@@ -30,12 +30,6 @@
 
                     <div class="mt-4">
                         <x-room.table :hotel="$hotel" />
-                    </div>
-
-                    <div class="mt-4 flex justify-end items-center px-6 py-2">
-                        <a href="{{route("hotel.create")}}" class="block px-4 py-2 border rounded shadow text-gray-100 bg-blue-500 hover:bg-blue-600 hover:text-white focus:text-white focus:outline-none focus:ring-blue-600 focus:ring-2">
-                            {{ __('Create new') }}
-                        </a>
                     </div>
 
                 </div>

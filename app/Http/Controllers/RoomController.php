@@ -150,6 +150,6 @@ class RoomController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if ( ! Auth::user()->hasRole("receptionist") ) abort(403, "You're not receptionist");
     }
 }

@@ -21,7 +21,7 @@
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             {{ __('Address') }}
                         </th>
-                        @can("update hotel")
+                        @can(["update hotel", "destroy hotel"])
                         <th scope="col" class="relative px-6 py-3">
                             <span class="sr-only">{{ __('Actions') }}</span>
                         </th>
@@ -48,9 +48,10 @@
                             <td class="px-6 py-4 text-sm text-gray-500">
                                 {{ $hotel->address }}
                             </td>
-                            @can("update hotel")
+                            @can(["update hotel", "destroy hotel"])
                             <td class="px-6 py-4 space-x-4 whitespace-nowrap text-right text-sm font-medium">
                                 <a href="{{route("hotel.edit", $hotel)}}" class="text-green-600 hover:text-green-900">Edit</a>
+                                <a href="{{route("hotel.destroy", $hotel)}}" class="text-red-600 hover:text-red-900">Delete</a>
                             </td>
                             @endcan
                         </tr>

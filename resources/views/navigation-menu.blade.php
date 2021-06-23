@@ -21,6 +21,12 @@
                         {{ __('Hotels') }}
                     </x-jet-nav-link>
                     @endrole
+
+                    @role('receptionist')
+                    <x-jet-nav-link href="{{ route('hotel.index') }}" :active="request()->routeIs('hotel.index')">
+                        {{ __('Hotels') }}
+                    </x-jet-nav-link>
+                    @endrole
                 </div>
             </div>
 

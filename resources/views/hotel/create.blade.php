@@ -43,7 +43,7 @@
                 </div>
 
                 <div class="flex flex-col space-y-2">
-                    <button class="inline-block px-4 py-2 border rounded shadow bg-blue-500 focus:ring-blue-600 hover:bg-blue-600 focus:outline-none focus:ring-2 " type="submit">{{ __("Create") }}</button>
+                    <button class="inline-block px-4 py-2 border rounded shadow text-white bg-blue-500 focus:ring-blue-600 hover:bg-blue-600 focus:outline-none focus:ring-2 " type="submit">{{ __("Create") }}</button>
                 </div>
             </form>
         </div>

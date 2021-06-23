@@ -39,16 +39,18 @@ Route::prefix('/admin')->middleware(['auth:sanctum', 'verified'])->group(functio
     Route::get("hotel/create", [HotelController::class, 'create'])->name("hotel.create");
     Route::post("hotel/store", [HotelController::class, 'store'])->name("hotel.store");
     Route::get("hotel/{hotel}/edit", [HotelController::class, 'edit'])->name("hotel.edit");
-    Route::post("hotel/{hotel}/edit", [HotelController::class, 'update'])->name("hotel.update");
+    Route::post("hotel/{hotel}/update", [HotelController::class, 'update'])->name("hotel.update");
+    Route::get("hotel/{hotel}/destroy", [HotelController::class, 'destroy'])->name("hotel.destroy");
 
     Route::get("hotel/{hotel}/room", [RoomController::class, 'index'])->name("room.index");
     Route::get("hotel/{hotel}/room/create", [RoomController::class, 'create'])->name("room.create");
     Route::post("hotel/{hotel}/room", [RoomController::class, 'store'])->name("room.store");
     Route::get("hotel/{hotel}/room/{room}/edit", [RoomController::class, 'edit'])->name("room.edit");
     Route::post("hotel/{hotel}/room/{room}/update", [RoomController::class, 'update'])->name("room.update");
+    Route::get("hotel/{hotel}/room/{room}/destroy", [RoomController::class, 'destroy'])->name("room.destroy");
 
     Route::get("hotel/{hotel}/room/{room}/booking", [BookingController::class, "index"])->name("booking.index");
 
 });
 
-Route::get("/Hotel/{hotel}", [HotelController::class, "show"])->name("hotel.show");
+Route::get("/hotel/{hotel}", [HotelController::class, "show"])->name("hotel.show");
