@@ -21,12 +21,7 @@ Route::get('/', function () {
     return view('home-page');
 });
 
-Route::get('/search', function () {
-    //return view('welcome');
-    return view('find-hotel', [
-        "hotels" => \App\Models\Hotel::all(),
-    ]);
-})->name("hotel.search");
+Route::get('/search-hotel', \App\View\Components\Hotel\Search::class)->name("hotel.search");
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
@@ -54,7 +49,7 @@ Route::prefix('/admin')->middleware(['auth:sanctum', 'verified'])->group(functio
 });
 
 Route::get("/register/guest", function () {
-
+    return view("auth.register.guest");
 })->name("auth.register.guest");
 
 Route::get("/hotel/{hotel}", [HotelController::class, "show"])->name("hotel.show");

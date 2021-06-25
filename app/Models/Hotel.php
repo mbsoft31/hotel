@@ -8,6 +8,9 @@ use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Laravel\Jetstream\Features;
 
+/**
+ * @method static orWhere(string $string, string $string1, string $string2)
+ */
 class Hotel extends Model
 {
     use HasFactory;
