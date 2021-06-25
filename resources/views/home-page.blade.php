@@ -60,15 +60,9 @@
                             </div>
                             <div class="px-2 pt-2 pb-3 space-y-1">
                                 <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">Hotels</a>
-
-                                <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">Features</a>
-
-                                <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">Services</a>
-
-                                <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">Company</a>
                             </div>
                             <a href="/login" class="block w-full px-5 py-3 text-center font-medium text-pink-600 bg-gray-50 hover:bg-gray-100">
-                                Log in
+                                {{ __("Login") }}
                             </a>
                         </div>
                     </div>

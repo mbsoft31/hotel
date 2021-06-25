@@ -20,12 +20,12 @@
                 <form action="{{ route("hotel.search") }}">
                     <div class="bg-white w-full px-8 pt-6 pb-8 space-y-4 rounded-md shadow">
                         <x-jet-label for="search" value="{{ __('Search for Hotel') }}" class="text-xl tracking-wide" />
-                        <x-input.text name="search" id="search" placeholder="Search for name, address then just hit enter" wire:model="search" class="w-full text-xl border border-gray-300 focus:border-pink-300 outline-none focus:ring-offset-1 focus:ring-2 focus:ring-pink-500"/>
+                        <x-input.text name="search" id="search" placeholder="Search for name, address then just hit enter" wire:model.debounce.300="search" class="w-full text-xl border border-gray-300 focus:border-pink-300 outline-none focus:ring-offset-1 focus:ring-2 focus:ring-pink-500"/>
                     </div>
                 </form>
             </div>
             <div id="results" class="relative w-full max-w-3xl mt-1.5 mx-auto">
-                @if( isset($hotels) && ( count($hotels) > 0 ) )
+                @if( isset($hotels) && ( count($hotels) > 0 ) && ( $search != '' ) )
                     <div class="bg-white w-full px-4 pt-6 pb-8 rounded-md shadow">
                         @foreach($hotels as $hotel)
                             <div class="px-4 py-4 border border-gray-300">

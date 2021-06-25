@@ -19,8 +19,8 @@
         </div>
     </div>
     <div class="hidden md:block md:ml-10 md:pr-4 md:space-x-8">
-        <a href="#" class="font-medium text-gray-500 hover:text-gray-900">Hotels</a>
+        <a href="{{ route("hotel.search") }}" class="font-medium text-gray-500 hover:text-gray-900">Hotels</a>
 
-        <a href="/login" class="font-medium text-indigo-600 hover:text-indigo-500">Log in</a>
+        <a href="{{ route("login") }}" class="font-medium text-indigo-600 hover:text-indigo-500">Log in</a>
     </div>
 </nav>
