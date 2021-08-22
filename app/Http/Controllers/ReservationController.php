@@ -99,6 +99,25 @@ class ReservationController extends Controller
      */
     public function destroy(Reservation $reservation)
     {
-        //
+        $reservation->delete();
+        return back();
+    }
+
+    public function checkIn(Reservation $reservation)
+    {
+        $reservation->check();
+        return back();
+    }
+
+    public function accept(Reservation $reservation)
+    {
+        $reservation->accept();
+        return back();
+    }
+
+    public function passed(Reservation $reservation)
+    {
+        $reservation->pass();
+        return back();
     }
 }

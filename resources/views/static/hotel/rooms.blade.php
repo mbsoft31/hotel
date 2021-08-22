@@ -1,5 +1,5 @@
 <div>
-    <div x-data="{show: 'guest_informations'}" class="-mt-12 relative z-40 px-6 py-12 bg-white border rounded-md shadow-md">
+    <div x-data="{show: @entangle('show')}" class="-mt-12 relative z-40 px-6 py-12 bg-white border rounded-md shadow-md">
 
         <div class="max-w-3xl mx-auto mt-8 space-y-6">
             <ul class="flex items-center justify-around space-x-3">
@@ -44,26 +44,130 @@
                 </div>
             </div>
 
-            <div x-show="show == 'guest_informations'" class="flex flex-col px-8 py-6 space-y-6" style="display: none">
-                <div class="w-full space-y-3">
-                    <x-input.label for="first_name">{{ __("First name") }}</x-input.label>
-                    <input wire:model="state.first_name" id="first_name" name="first_name" type="text" class="rounded-md w-2/3">
-                </div>
+            <div x-show="show == 'guest_informations'" class="" style="display: none">
+                @auth
+                    @if(Auth::user()->hasRole("guest"))
+                        <div class="flex flex-col px-8 py-6 space-y-6">
+                            <div class="w-full space-y-3">
+                                <div>
+                                    {{ __("National ID") }}:
+                                </div>
+                                <div class="uppercase text-lg font-bold tracking-wide">
+                                    {{ Auth::user()->guest->CID }} <span class="uppercase">({{ Auth::user()->guest->CID_type }})</span>
+                                </div>
+                            </div>
+                            <div class="w-full space-y-3">
+                                <div>
+                                    {{ __("Full name") }}:
+                                </div>
+                                <div class="uppercase text-lg font-bold tracking-wide">
+                                    {{ Auth::user()->guest->name }}
+                                </div>
+                            </div>
 
-                <div class="w-full space-y-3">
-                    <x-input.label for="last_name">{{ __("Last name") }}</x-input.label>
-                    <input wire:model="state.last_name" id="last_name" name="last_name" type="text" class="rounded-md w-2/3">
-                </div>
+                            <div class="w-full space-y-3">
+                                <div>
+                                    {{ __("Gender") }}:
+                                </div>
+                                <div class="uppercase text-lg font-bold tracking-wide">
+                                    {{ Auth::user()->guest->gender }}
+                                </div>
+                            </div>
+                            <div class="w-full space-y-3">
+                                <div>
+                                    {{ __("Birthdate") }}:
+                                </div>
+                                <div class="uppercase text-lg font-bold tracking-wide">
+                                    {{ Auth::user()->guest->birthdate }}
+                                </div>
+                            </div>
 
-                <div class="w-full space-y-3">
-                    <x-input.label for="birthdate">{{ __("Birthdate") }}</x-input.label>
-                    <input wire:model="state.birthdate" id="birthdate" name="birthdate" type="date" max="{{ \Carbon\Carbon::now()->subYears(18)->format('Y-m-d') }}" class="rounded-md w-2/3">
-                </div>
+                            <div class="w-full space-y-3">
+                                <div>
+                                    {{ __("Birth place") }}:
+                                </div>
+                                <div class="uppercase text-lg font-bold tracking-wide">
+                                    {{ Auth::user()->guest->birth_place }}
+                                </div>
+                            </div>
+                        </div>
+                    @else
+                        <div class="flex flex-col px-8 py-6 space-y-6">
 
-                <div class="w-full space-y-3">
-                    <x-input.label for="birth_place">{{ __("Birth place") }}</x-input.label>
-                    <input wire:model="state.birth_place" id="birth_place" name="birth_place" type="text" class="rounded-md w-2/3">
-                </div>
+                            <input wire:click="state.user_id" id="user_id" name="user_id" type="hidden" value="{{Auth::id()}}">
+
+                            <div class="w-full space-y-3">
+                                <x-input.label for="CID_type">{{ __("ID type") }}</x-input.label>
+                                <select wire:model="state.CID_type" id="CID_type" name="CID_type" class="rounded-md w-2/3">
+                                    <option value="national_id">{{ __("National ID card") }}</option>
+                                    <option value="passport">{{ __("passport") }}</option>
+                                </select>
+                            </div>
+
+                            <div class="w-full space-y-3">
+                                <x-input.label for="CID">{{ __("National ID number") }}</x-input.label>
+                                <input wire:model="state.CID" id="CID" name="CID" type="text" class="rounded-md w-2/3">
+                            </div>
+
+                            <div class="w-full space-y-3">
+                                <x-input.label for="first_name">{{ __("First name") }}</x-input.label>
+                                <input wire:model="state.first_name" id="first_name" name="first_name" type="text" class="rounded-md w-2/3">
+                            </div>
+
+                            <div class="w-full space-y-3">
+                                <x-input.label for="last_name">{{ __("Last name") }}</x-input.label>
+                                <input wire:model="state.last_name" id="last_name" name="last_name" type="text" class="rounded-md w-2/3">
+                            </div>
+
+                            <div class="w-full space-y-3">
+                                <x-input.label for="gender">{{ __("Gender") }}</x-input.label>
+                                <input wire:model="state.gender" id="gender" name="gender" type="text" class="rounded-md w-2/3">
+                            </div>
+
+                            <div class="w-full space-y-3">
+                                <x-input.label for="birthdate">{{ __("Birthdate") }}</x-input.label>
+                                <input wire:model="state.birthdate" id="birthdate" name="birthdate" type="date" max="{{ \Carbon\Carbon::now()->subYears(18)->format('Y-m-d') }}" class="rounded-md w-2/3">
+                            </div>
+
+                            <div class="w-full space-y-3">
+                                <x-input.label for="birth_place">{{ __("Birth place") }}</x-input.label>
+                                <input wire:model="state.birth_place" id="birth_place" name="birth_place" type="text" class="rounded-md w-2/3">
+                            </div>
+
+                            <div class="w-full flex items-center justify-end space-x-3">
+                                <a href="{{ route("register") }}">
+                                    {{ __("Login using an other account") }}
+                                </a>
+                                <button wire:click="createGuest()" type="button" class="px-6 py-2 rounded-md shadow text-gray-50 bg-indigo-500 hover:text-white hover:bg-indigo-700">
+                                    {{ __("Save") }}
+                                </button>
+                            </div>
+                        </div>
+                    @endif
+                @else
+                    <div class="flex flex-col px-8 py-6 space-y-6">
+                        <div class="w-full space-y-3">
+                            <x-input.label for="email">{{ __("Email") }}</x-input.label>
+                            <input wire:model="state.email" id="email" name="email" type="email" class="rounded-md w-2/3">
+                            <x-input.error for="email"></x-input.error>
+                        </div>
+
+                        <div class="w-full space-y-3">
+                            <x-input.label for="password">{{ __("Password") }}</x-input.label>
+                            <input wire:model="state.password" id="password" name="password" type="password" class="rounded-md w-2/3">
+                            <x-input.error for="password"></x-input.error>
+                        </div>
+
+                        <div class="w-full flex items-center justify-end space-x-3">
+                            <a href="{{ route("register") }}">
+                                {{ __("Create an account") }}
+                            </a>
+                            <button wire:click="login()" type="button" class="px-6 py-2 rounded-md shadow text-gray-50 bg-indigo-500 hover:text-white hover:bg-indigo-700">
+                                {{ __("Log in") }}
+                            </button>
+                        </div>
+                    </div>
+                @endauth
             </div>
 
             <div x-show="show == 'rooms_informations'" class="flex flex-col px-4 py-6 space-y-6" style="display: none">
@@ -133,6 +237,12 @@
                                 <div>
                                     <span>{{ __("Total price") }}: </span>
                                     <span class="text-3xl text-gray-800">{{ $selected_rooms_models->sum("room_price_x_person") }} {{ $selected_rooms_models->first()->room_price_currency??'' }}</span>
+                                </div>
+                            </div>
+
+                            <div class="px-6 py-6 flex items-center justify-end">
+                                <div>
+                                    <x-button wire:click="makeReservation()" type="button" class="py-4 bg-purple-600 hover:bg-purple-700">{{ __("Make reservation") }}</x-button>
                                 </div>
                             </div>
                         </div>

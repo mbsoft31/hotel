@@ -3,11 +3,11 @@
 namespace App\Http\Livewire\Reservation;
 
 use App\Models\Reservation;
-use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
-class AcceptAction extends Component
+class PassAction extends Component
 {
+
     public Reservation $reservation;
 
     public function mount(Reservation $reservation)
@@ -17,6 +17,6 @@ class AcceptAction extends Component
 
     public function render()
     {
-        return view("receptionist.reservation.accept-action");
+        return view('receptionist.reservation.pass-action');
     }
 }

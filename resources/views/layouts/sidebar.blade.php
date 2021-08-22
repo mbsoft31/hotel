@@ -27,7 +27,7 @@
     >
         <div class="flex items-center px-6">
             <div class="flex-grow">
-                <h1 class="text-lg font-semibold tracking-wide py-4">{{ __("Hotel Management") }}</h1>
+                <h1 class="text-lg font-semibold tracking-wide py-4 text-purple-600">{{ config("app.name", __("Hotel Management")) }}</h1>
             </div>
             <button @click="$store.layout.closeSidebar()" class="button py-4 w-8 h-8 relative bg-transparent border-transparent cursor-pointer">
                 <div class="absolute h-px w-full bg-gray-900 bg-opacity-50 left-0 top-1/2 transform translate-x-0 -translate-y-1/2 rotate-45"></div>
@@ -35,7 +35,7 @@
             </button>
         </div>
         <div class="">
-            <div class="px-6 py-4 pt-10 space-y-4 bg-gray-50 shadow-sm border-b">
+            <div class="px-6 py-4 pt-10 space-y-4 bg-purple-50 shadow-sm border-b">
                 @auth
                     <div class="flex items-center py-4 space-x-4">
                         <x-display.avatar class="w-20 h-20" src="https://via.placeholder.com/150" />
@@ -43,7 +43,7 @@
                             @role("receptionist")
                             {{ Auth::user()->receptionist->name }}
                             @endrole
-                            <p class="text-sm font-semibold tracking-wider text-gray-700">{{ Auth::user()->name }}</p>
+                            <p class="text-sm font-semibold tracking-wider text-purple-700">{{ Auth::user()->name }}</p>
                             <p class="text-sm text-gray-500">{{ Auth::user()->email }}</p>
                         </div>
                     </div>

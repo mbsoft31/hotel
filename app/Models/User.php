@@ -62,4 +62,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(Guest::class);
     }
+
+    public function getFullNameAttribute()
+    {
+        return $this->hasRole("receptionist") ? $this->receptionist->name : ($this->hasRole("guest") ? $this->guest->name : $this->name);
+    }
 }

@@ -6,8 +6,9 @@
 
     <div class="mt-8 py-4 px-6">
         <div class="flex items-center justify-end py-4">
-            <a href="{{ route("admin.hotel.create") }}" class="px-2 py-1.5 rounded-md shadow bg-blue-400 hover:bg-blue-600 text-gray-50 hover:white ">
-                {{ __("Create new Hotel") }}
+            <a href="{{ route("admin.hotel.create") }}" class="inline-flex items-center space-x-3 px-6 py-2 rounded-md shadow bg-purple-400 hover:bg-purple-600 text-gray-50 hover:white ">
+                <i class="fas fa-plus-circle"></i>
+                <span>{{ __("Create new Hotel") }}</span>
             </a>
         </div>
         <div class="flex flex-col">

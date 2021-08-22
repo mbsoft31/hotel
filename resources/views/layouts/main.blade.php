@@ -21,10 +21,10 @@
 <body class="bg-gray-100">
 
     <div x-data>
-        @include("layouts.sidebar")
+        @livewire("layouts.sidebar")
 
         <main class="min-h-screen flex flex-col">
-            @include("layouts.navbar")
+            @livewire("layouts.navbar")
             <main class="flex-grow min-h-full">
                 @if(isset($header))
                     <div>

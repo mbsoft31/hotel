@@ -91,11 +91,21 @@ Route::prefix("/receptionist")->middleware(["auth", "role:receptionist"])->name(
     })
         ->name("reservation.index");
 
+    Route::get("/reservation/{reservation}/accept", [\App\Http\Controllers\ReservationController::class, "accept"])
+        ->name("reservation.accept");
+    Route::get("/reservation/{reservation}/checkIn", [\App\Http\Controllers\ReservationController::class, "checkIn"])
+        ->name("reservation.checkIn");
+    Route::get("/reservation/{reservation}/passed", [\App\Http\Controllers\ReservationController::class, "passed"])
+        ->name("reservation.passed");
+
 });
 
 Route::prefix("/guest")->middleware(["auth", "role:guest"])->name("guest.")->group( function () {
 
     Route::get("/reservation", [\App\Http\Controllers\ReservationController::class, "index"])
         ->name("reservation.index");
+
+    Route::get("/reservation/{reservation}/destroy", [\App\Http\Controllers\ReservationController::class, "destroy"])
+        ->name("reservation.destroy");
 
 });

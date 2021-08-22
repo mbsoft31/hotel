@@ -1,12 +1,12 @@
 <header class="bg-white border-b border-gray-100">
     <div class="flex items-center max-w-7xl mx-auto px-6 py-6 space-x-4">
         @auth
-            <button @click="$store.layout.openSidebar()" type="button" class="inline-flex items-center space-x-2 text-center text-gray-500 hover:text-gray-700">
+            <button @click="$store.layout.openSidebar()" type="button" class="inline-flex items-center space-x-2 text-center text-purple-500 hover:text-purple-700">
                 <i class="fas fa-bars text-2xl"></i>
             </button>
         @endauth
-        <h1 class="flex-grow text-sm sm:text-lg font-semibold tracking-wide">
-            <a href="/">{{ __("Hotel Management") }}</a>
+        <h1 class="flex-grow text-sm sm:text-lg font-semibold tracking-wide text-purple-600">
+            <a href="/">{{ config("app.name", __("Hotel Management")) }}</a>
         </h1>
         <div class="flex items-center space-x-4">
             @auth
@@ -21,7 +21,7 @@
                 <div class="inline-flex items-center relative">
                     <button @click="$store.layout.openUserDropdown()" type="button" class="inline-flex items-center space-x-2 text-center text-gray-500 hover:text-gray-700">
                         <x-display.avatar class="inline-block w-6 h-6" src="https://via.placeholder.com/150" />
-                        <span class="hidden sm:inline">{{ Auth::user()->name }}</span>
+                        <span class="hidden sm:inline">{{ Auth::user()->full_name }}</span>
                     </button>
                     <x-menu.menu
                         @click.away="$store.layout.closeUserDropdown()"

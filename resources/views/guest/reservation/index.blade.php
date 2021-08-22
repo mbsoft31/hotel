@@ -5,8 +5,8 @@
 
     <div class="mt-8 py-4 px-6">
         <div class="flex items-center justify-end py-4">
-            <a href="{{ route("admin.hotel.create") }}" class="px-2 py-1.5 rounded-md shadow bg-blue-400 hover:bg-blue-600 text-gray-50 hover:white ">
-                {{ __("Create new Hotel") }}
+            <a href="{{ route("room.search") }}" class="px-2 py-1.5 rounded-md shadow bg-blue-400 hover:bg-blue-600 text-gray-50 hover:white ">
+                {{ __("Make new reservation") }}
             </a>
         </div>
         <div class="flex flex-col">
@@ -143,27 +143,34 @@
                                     </x-table.td>
                                     <x-table.td class="whitespace-normal">
                                         <div class="inline-flex items-center space-x-2">
-                                            @livewire("reservation.accept-action", ["reservation" => $reservation])
-                                            @livewire("reservation.check-in-action", ["reservation" => $reservation])
-                                            <a href="{{ route("receptionist.room.edit", $reservation) }}" class="text-sm text-green-500 hover:text-green-700">{{ __("Edit") }}</a>
-                                            <x-modal>
-                                                <x-slot name="trigger">
-                                                    <button @click="openModal()" class="text-sm text-red-500 hover:text-red-700" data-bs-toggle="modal" data-bs-target="#modal-delete-{{$reservation->id}}">{{ __("Delete") }}</button>
-                                                </x-slot>
+                                            <livewire:reservation.pass-action :reservation="$reservation" wire:key="'{{ 'pass-' . $reservation->id }}'"></livewire:reservation.pass-action>
+                                            <livewire:reservation.accept-action :reservation="$reservation" wire:key="'{{ 'accept-' . $reservation->id }}'"></livewire:reservation.accept-action>
+                                            <livewire:reservation.check-in-action :reservation="$reservation" wire:key="'{{ 'check-' . $reservation->id }}'"></livewire:reservation.check-in-action>
+                                            @if(Auth::user()->hasRole("guest") && Auth::user()->guest->id == $reservation->guest_id)
+                                                <a href="{{ route("receptionist.room.edit", $reservation) }}" class="text-sm text-green-500 hover:text-green-700">{{ __("Edit") }}</a>
+                                                <x-modal>
+                                                    <x-slot name="trigger">
+                                                        <button @click="openModal()" class="text-sm text-red-500 hover:text-red-700" data-bs-toggle="modal" data-bs-target="#modal-delete-{{$reservation->id}}">{{ __("Delete") }}</button>
+                                                    </x-slot>
 
-                                                <div>
-                                                    {{ __('do you really want to delete this room?') }}
-                                                </div>
+                                                    <x-slot name="title">
+                                                        {{ __("Delete reservation") }}
+                                                    </x-slot>
 
-                                                <x-slot name="actions">
-                                                    <form action="{{ route("receptionist.room.destroy", $reservation) }}" method="POST">
-                                                        @csrf
-                                                        <button type="submit" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm">{{ __("Delete permanently") }}</button>
-                                                    </form>
-                                                    <button @click="closeModal()" type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm" data-bs-dismiss="modal">Close</button>
-                                                </x-slot>
+                                                    <div>
+                                                        {{ __('do you really want to delete this reservation?') }}
+                                                    </div>
 
-                                            </x-modal>
+                                                    <x-slot name="actions">
+                                                        <form action="{{ route("guest.reservation.destroy", $reservation) }}" method="POST">
+                                                            @csrf
+                                                            <button type="submit" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm">{{ __("Delete permanently") }}</button>
+                                                        </form>
+                                                        <button @click="closeModal()" type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm" data-bs-dismiss="modal">Close</button>
+                                                    </x-slot>
+
+                                                </x-modal>
+                                            @endif
                                         </div>
                                     </x-table.td>
                                 </tr>

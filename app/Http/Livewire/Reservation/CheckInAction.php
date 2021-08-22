@@ -8,22 +8,17 @@ use Livewire\Component;
 
 class CheckInAction extends Component
 {
-    public Reservation $reservation;
-
     protected $listeners = ["saved" => '$refresh'];
 
-    public function check()
+    public function mount(Reservation $reservation)
     {
-        $this->reservation->check();
-
-        $this->emit("saved");
+        $this->model = $reservation;
     }
 
     public function render()
     {
-        if ( ! Auth::user()->can("check reservation") || $this->reservation->state != "accepted" )
-            return '';
-        else
-            return view("receptionist.reservation.check-in-action");
+        return view("receptionist.reservation.check-in-action", [
+            "reservation" => $this->model,
+        ]);
     }
 }

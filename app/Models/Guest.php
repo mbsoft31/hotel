@@ -9,6 +9,19 @@ class Guest extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        "id",
+        "user_id",
+        "first_name",
+        "last_name",
+        "gender",
+        "birthdate",
+        "birth_place",
+        "CID",
+        "CID_type",
+        "metas",
+    ];
+
     protected $casts = [
         "metas" => "array"
     ];

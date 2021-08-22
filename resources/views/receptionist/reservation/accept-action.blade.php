@@ -1,3 +1,5 @@
 <div>
-    <button type="button" wire:click="accept()" class="text-sm text-purple-500 hover:text-purple-700">{{ __("Accept") }}</button>
+    @if(Auth::user()->hasRole("receptionist") && $reservation->state != "accepted" && $reservation->state != "checked" && $reservation->state != "passed")
+        <a href="{{ route("receptionist.reservation.accept", $reservation) }}" class="text-sm text-gray-500 hover:text-gray-700">{{ __("Accept") }}</a>
+    @endif
 </div>
