@@ -1,17 +1,17 @@
 
 
-git clone https://github.com/mbsoft31/hotel.git hotel
+1/ git clone https://github.com/mbsoft31/hotel.git hotel
 
-cd hotel
+2/ cd hotel
 
--- edit .env file DB_PASSWORD=root to DB_PASSWORD= (empty)
+3/ -- edit .env file DB_PASSWORD=root to DB_PASSWORD= (empty)
 
-composer install
+4/ composer install
 
-npm install
+5/ npm install
 
-npm run dev
+6/ npm run dev
 
-php artisan migrate:fresh --seed
+7/ php artisan migrate:fresh --seed
 
-php artisan serve
+8/ php artisan serve
