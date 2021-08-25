@@ -172,7 +172,7 @@
 
             <div x-show="show == 'rooms_informations'" class="flex flex-col px-4 py-6 space-y-6" style="display: none">
                 @if(isset($selected_rooms_models))
-                    <div class="max-w-3xl mx-auto space-y-6">
+                    <div class="max-w-3xl w-full mx-auto space-y-6">
                         <div class="space-y-2">
                             @foreach($selected_rooms_models as $room)
                                 <div class="px-6 py-2 bg-gray-50 border-b border-gray-300">
