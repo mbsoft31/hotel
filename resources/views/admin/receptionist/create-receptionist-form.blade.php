@@ -8,7 +8,7 @@
     </x-slot>
 
     <x-slot name="form">
-        <div x-data="{existing_user: @entangle('state.existing_user'),user_id: @entangle('state.user_id'), name: @entangle('state.name'), email: @entangle('state.email'), password: @entangle('state.password')}">
+        <div x-data="{existing_user: @entangle('existing_user'),user_id: @entangle('state.user_id'), name: @entangle('state.name'), email: @entangle('state.email'), password: @entangle('state.password')}">
             <div class="py-4 space-y-3">
                 <x-input.label for="first_name">{{__("First name")}}</x-input.label>
                 <x-input.text wire:model="state.first_name" id="first_name" name="first_name" class="w-full" placeholder="First name"/>

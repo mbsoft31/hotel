@@ -41,6 +41,33 @@
                     <x-input id="birth_place" class="block mt-1 w-full" type="text" name="birth_place" :value="old('birth_place')" required />
                 </div>
 
+                <!-- Gender -->
+                <div class="mt-4">
+                    <x-label for="gender" :value="__('Gender')" />
+
+                    <select id="gender" class="block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" type="text" name="gender" :value="old('gender')" required>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                    </select>
+                </div>
+
+                <!-- CID type -->
+                <div class="mt-4">
+                    <x-label for="CID_type" :value="__('CID type')" />
+
+                    <select id="CID_type" class="block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" type="text" name="CID_type" :value="old('CID_type')" required>
+                        <option value="national_id">national_id</option>
+                        <option value="passport">passport</option>
+                    </select>
+                </div>
+
+                <!-- CID -->
+                <div class="mt-4">
+                    <x-label for="CID" :value="__('CID number')" />
+
+                    <x-input id="CID" class="block mt-1 w-full" type="text" name="CID" :value="old('CID')" required />
+                </div>
+
                 <!-- Username -->
                 <div class="mt-4">
                     <x-label for="name" :value="__('Username')" />

@@ -70,20 +70,20 @@ class RoleSeeder extends Seeder
             "password" => Hash::make("admin1234"),
         ]);
 
-        Receptionist::factory()
+        /*Receptionist::factory()
             ->count(10)
             ->afterCreating(function ($model) {
                 $model->user->assignRole("receptionist");
                 $model->user->password = Hash::make("password");
                 $model->user->save();
-            })->create();
+            })->create();*/
 
-        Guest::factory()
+        /*Guest::factory()
             ->count(10)
             ->afterCreating(function ($model) {
                 $model->user->assignRole("guest");
                 $model->user->password = Hash::make("password");
                 $model->user->save();
-            })->create();
+            })->create();*/
     }
 }

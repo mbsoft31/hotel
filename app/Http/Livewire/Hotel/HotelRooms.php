@@ -141,7 +141,7 @@ class HotelRooms extends Component
         Guest::create(collect($data)->except("existing_user")->toArray());
         $user->assignRole("guest");
 
-        if ( ! Auth::check() && Auth::login($user) )
+        if ( ! Auth::check() && Auth::attempt(["email" => $user->email, "password" => $user->password]))
         {
             $this->emit("loggedIn");
         }

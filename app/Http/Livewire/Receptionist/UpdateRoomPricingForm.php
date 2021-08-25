@@ -7,6 +7,7 @@ use App\Models\Receptionist;
 use App\Models\Room;
 use App\Models\RoomType;
 use Booking\Interfaces\Room\UpdateRoom;
+use Illuminate\Validation\ValidationException;
 use Livewire\Component;
 
 class UpdateRoomPricingForm extends Component
@@ -20,7 +21,14 @@ class UpdateRoomPricingForm extends Component
 
     public function save(UpdateRoom $updater)
     {
-        $updater->update($this->room, $this->state);
+        try {
+            if ( ! isset($this->state["meta"]) || (isset($this->state["meta"]) && $this->state["meta"] == null) )
+                $this->state["meta"] = [];
+            $updater->update($this->room, $this->state);
+        }catch (ValidationException $exception)
+        {
+            dd($exception->errors());
+        }
 
         $this->emit('saved');
         $this->emit('roomUpdated');

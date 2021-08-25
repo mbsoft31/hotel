@@ -73,12 +73,12 @@ class ReceptionistController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return Response
+     * @return Application|Factory|View|Response
      */
-    public function edit(int $id): Response
+    public function edit(int $id)
     {
         $receptionist = Receptionist::findOrFail($id);
-        return response('edit receptionist ' . $receptionist->name);
+        return view("admin.receptionist.edit", compact("receptionist"));
     }
 
     /**

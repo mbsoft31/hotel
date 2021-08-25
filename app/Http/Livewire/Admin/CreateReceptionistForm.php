@@ -3,7 +3,7 @@
 namespace App\Http\Livewire\Admin;
 
 use App\Models\User;
-use Booking\Interfaces\Receptionist\CreateReceptionist as CreateReceptionistAlias;
+use Booking\Interfaces\Receptionist\CreateReceptionist;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
@@ -13,7 +13,7 @@ use Livewire\Component;
 class CreateReceptionistForm extends Component
 {
 
-    public bool $existing_user = true;
+    public bool $existing_user = false;
 
     public $state;
 
@@ -26,7 +26,6 @@ class CreateReceptionistForm extends Component
             "birth_place" => "",
             "meta" => [],
             "user_id" => null,
-            "existing_user" => false,
             "name" => "",
             "email" => "",
             "password"=> "",
@@ -36,12 +35,17 @@ class CreateReceptionistForm extends Component
     /**
      * @throws ValidationException
      */
-    public function save(CreateReceptionistAlias $creator)
+    public function save(CreateReceptionist $creator)
     {
-        $creator->create(array_merge($this->state, [
-            "existing_user" => $this->existing_user,
-        ]));
 
+        try {
+            $receptionist = $creator->create(array_merge($this->state, [
+                "existing_user" => $this->existing_user,
+            ]));
+        }catch (\Exception $exception)
+        {
+            dd($exception);
+        }
 
         return redirect()->route("admin.receptionist.index");
     }
@@ -54,7 +58,7 @@ class CreateReceptionistForm extends Component
         return User::whereNotIn(
             'id',
             DB::table('receptionists')
-                ->select(["user_id" => 'id'])
+                ->select(["user_id"])
                 ->get()
                 ->pluck("id")
                 ->toArray()

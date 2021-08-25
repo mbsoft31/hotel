@@ -28,7 +28,7 @@ class DatabaseSeeder extends Seeder
         $beds = BedType::all();
         $rooms = RoomType::all();
 
-        $receptionists = Receptionist::all();
+        /*$receptionists = Receptionist::all();
         $receptionist_index = 1;
 
         $guests = Guest::all();
@@ -73,7 +73,7 @@ class DatabaseSeeder extends Seeder
                 $model->receptionists()->attach($receptionists->pop());
                 // set photos folder
             })
-            ->create();
+            ->create();*/
 
         /*Hotel::factory()
             ->count(100)

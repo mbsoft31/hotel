@@ -95,34 +95,10 @@ class Room extends Model
         $query
             ->whereRaw("`capacities`.`capacity` >= $persons")
             ->whereNotIn("rooms.id", function ($query) use($start, $end){
-                $query->selectRaw("`r`.id")
-                    ->fromRaw("`reservations`, `rooms` `r`")
+                $query->selectRaw("`rooms`.id as room_id")
+                    ->fromRaw("`reservations`, `rooms`")
                     //->join("reservations", "reservations.id", "=", "r.id")
-                    ->whereRaw("`reservations`.`room_id` = `r`.`id`")
-                    ->where("r.rooms_count", ">", function ($query) use($start, $end){
-                        $query->selectRaw("COUNT(reservations.id)")
-                            ->from("rooms")
-                            ->join("reservations", "r.id", "=", "reservations.room_id")
-                            ->where(function ($query) use($start, $end) {
-                                $query
-                                    ->where(function ($query) use($start){
-                                        $query->where("reservations.start", "<=", $start)
-                                            ->where("reservations.end", ">", $start);
-                                    })
-                                    ->orWhere(function ($query) use($end){
-                                        $query->where("reservations.start", "<=", $end)
-                                            ->where("reservations.end", ">", $end);
-                                    });
-                            })
-                            ->orWhere(function ($query) use($start, $end){
-                                $query->where(function ($query) use($start, $end){
-                                    $query->where("reservations.start", ">" , $start)
-                                        ->where("reservations.end", "<", $end);
-                                });
-                            })
-                            ->groupBy("rooms.id")
-                            ->limit(1);
-                    })
+                    ->whereRaw("`reservations`.`room_id` = room_id")
                     ->whereNotIn("reservations.id", function ($query) use($start, $end){
                         $query->select(["id"])
                             ->from("reservations")

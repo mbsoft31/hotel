@@ -28,7 +28,7 @@ class UpdateRoomAction implements UpdateRoom
         "discount_available" => ["boolean"],
         "room_discount_x_person" => ["numeric"],
         "room_discount_x_person_type" => ["in:amount,percentage"],
-        "metas" => ["array"],
+        /*"metas" => ["array"],*/
     ];
 
     /**

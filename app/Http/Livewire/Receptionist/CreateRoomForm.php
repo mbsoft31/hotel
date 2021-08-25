@@ -19,11 +19,11 @@ class CreateRoomForm extends Component
 
     public function save(CreateRoom $creator)
     {
-        $creator->create($this->hotel, $this->state);
+        $room = $creator->create($this->hotel, $this->state);
 
         $this->emit('roomCreated');
 
-        return redirect()->route("receptionist.room.edit");
+        return redirect()->route("receptionist.room.edit", compact("room"));
     }
 
     public function mount()

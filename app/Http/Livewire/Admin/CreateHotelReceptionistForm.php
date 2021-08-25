@@ -42,8 +42,9 @@ class CreateHotelReceptionistForm extends Component
 
     public function render()
     {
+        $ids = DB::table("hotel_receptionist")->select(["receptionist_id"])->distinct()->get()->pluck("receptionist_id")->toArray();
         return view('admin.hotel.create-hotel-receptionist-form', [
-            "receptionists" => Receptionist::all(),
+            "receptionists" => Receptionist::query()->whereNotIn('id', $ids)->get(),
         ]);
     }
 }

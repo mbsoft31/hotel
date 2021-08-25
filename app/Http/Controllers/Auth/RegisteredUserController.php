@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Guest;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
@@ -39,7 +40,15 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+        $data = $request->validate([
+            "gender" => ['required', 'string'],
+            "CID" => ['required', 'string'],
+            "CID_type" => ['required', 'string'],
+            "first_name" => ['required', 'string'],
+            "last_name" => ['required', 'string'],
+            "birthdate" => ['required', 'date'],
+            "birth_place" => ['required', 'string'],
+            "metas" => ['array'],
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => ['required', Password::defaults()],
@@ -52,6 +61,14 @@ class RegisteredUserController extends Controller
         ]);
 
         event(new Registered($user));
+
+        $guest_data = array_merge(
+            collect($data)->except(['name','email','password'])->toArray(),
+            ["user_id" => $user->id],
+        );
+
+        Guest::create($guest_data);
+        $user->assignRole("guest");
 
         Auth::login($user);
 

@@ -20,7 +20,7 @@ class CreateReceptionistAction implements CreateReceptionist
     protected array $rules = [
 
         "existing_user" => ["required", "boolean"],
-        "user_id" => ["required_if:existing_user,true", "integer", "exists:users,id"],
+        //"user_id" => ["required_if:existing_user,true", "integer", "exists:users,id"],
 
         "first_name" => ['required', 'string'],
         "last_name" => ['required', 'string'],
@@ -38,7 +38,7 @@ class CreateReceptionistAction implements CreateReceptionist
     {
         $data = $this->validate($inputs);
 
-        if ( ! isset($data["user_id"]) || ! $data["existing_user"] )
+        if ( ! isset($data["user_id"]) && ! $data["existing_user"] )
         {
             $user = User::create([
                 'name' => $data["name"],
@@ -48,11 +48,15 @@ class CreateReceptionistAction implements CreateReceptionist
             ]);
 
             event(new Registered($user));
-        }else {
+        }else if ( isset($data["user_id"]) )
+        {
             $user = User::findOrFail($data["user_id"]);
         }
 
-        // TODO: assign role receptionist to user
+        if ( ! $user->hasRole("receptionist"))
+        {
+            $user->assignRole("receptionist");
+        }
 
         $data["user_id"] = $user->id;
 
