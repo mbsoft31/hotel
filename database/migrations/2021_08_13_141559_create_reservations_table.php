@@ -15,10 +15,10 @@ class CreateReservationsTable extends Migration
     {
         Schema::create('reservations', function (Blueprint $table) {
             $table->id();
-            $table->date("start");
+            $table->dateTime("start");
             $table->unsignedInteger("nights");
             $table->unsignedInteger("rooms_count")->default(1);
-            $table->date("end")->nullable();
+            $table->dateTime("end");
             $table->foreignId("room_id")->constrained()->onDelete("cascade");
             $table->foreignId("guest_id")->constrained()->onDelete("cascade");
             $table->string("state")->default("accepted");

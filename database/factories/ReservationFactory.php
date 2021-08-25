@@ -28,7 +28,7 @@ class ReservationFactory extends Factory
             "start" => $this->faker->dateTimeBetween("today", "2021-12-01"),
             "nights" => rand(1,5),
             "room_id" => Room::all()->random(1)->first()->id,
-            "guest_id" => Guest::factory(),
+            "guest_id" => Guest::factory()->afterCreating(function ($model){$model->user->assignRole('guest');}),
             "state" => "accepted",
         ];
         return array_merge( $attributes, [

@@ -28,6 +28,14 @@ class DatabaseSeeder extends Seeder
         $beds = BedType::all();
         $rooms = RoomType::all();
 
+        Hotel::factory()
+            ->has(
+                Room::factory()->count(5)
+            )
+            ->create();
+
+        Reservation::factory()->has(Room::factory()->state(["hotel_id" => 1]))->create();
+
         /*$receptionists = Receptionist::all();
         $receptionist_index = 1;
 

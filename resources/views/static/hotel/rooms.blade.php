@@ -29,8 +29,8 @@
                 </div>
 
                 <div class="w-full space-y-3">
-                    <x-input.label for="start">Start date</x-input.label>
-                    <input wire:model="start" id="start" name="start" type="date" min="{{ \Carbon\Carbon::now()->format("Y-m-d") }}" class="rounded-md w-2/3">
+                    <x-input.label for="end">End date</x-input.label>
+                    <input wire:model="end" id="end" name="end" type="date" min="{{ \Carbon\Carbon::now()->format("Y-m-d") }}" class="rounded-md w-2/3">
                 </div>
 
                 <div class="w-full space-y-3">
@@ -306,7 +306,7 @@
                                     </div>
                                     <div class="space-y-2">
                                         <div>
-                                            <span>{{ $bed->room_size }}</span> <span>{{ $bed->room_size_measure_unit }}</span>
+                                            <span>{{ $room->size }}</span> <span>{{ $room->room_size_measure_unit }}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -319,10 +319,10 @@
                                 </div>
                                 <div class="space-y-2">
                                     <div>
-                                        @if( ! $bed->no_smoking )
+                                        @if( ! $room->no_smoking )
                                         <i class="fas fa-smoking-ban fa-2x"></i>
                                         @endif
-                                        @if( $bed->no_smoking )
+                                        @if( $room->no_smoking )
                                         <i class="fas fa-smoking fa-2x"></i>
                                         @endif
                                     </div>

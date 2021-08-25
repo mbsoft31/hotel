@@ -37,16 +37,8 @@ class HotelRooms extends Component
     public $total_capacity = 0;
     public $selected = [];
 
-    protected $rooms;
+    //protected $rooms;
     protected $selected_rooms;
-
-    protected $queryString = [
-        "start" => ["except" => ''],
-        "nights" => ["except" => 1],
-        "persons" => ["except" => 1],
-        "selected",
-        "rooms_count" => ["except" => 1],
-    ];
 
     protected $listeners = ["loggedIn" => '$refresh'];
 
@@ -218,15 +210,15 @@ class HotelRooms extends Component
 
     public function render()
     {
-        $query = $this->hotel->rooms();
-
-        $this->rooms = $query->availableFor($this->start, $this->end, $this->persons)->paginate();
-
-        $this->rooms = $this->rooms->whereNotIn("id", collect($this->selected)->pluck("id")->toArray());
 
         return view('static.hotel.rooms', [
-            "rooms" => $this->rooms,
+            "rooms" => $this->query()->whereNotIn("id", collect($this->selected)->pluck("id")->toArray())->get(),
             "selected_rooms_models" => (isset($this->selected) && count($this->selected) > 0) ? Room::find( collect($this->selected)->pluck("id")->toArray()): collect(),
         ]);
+    }
+
+    public function query()
+    {
+        return $this->hotel->rooms();
     }
 }

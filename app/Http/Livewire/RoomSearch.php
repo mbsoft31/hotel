@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Hotel;
 use App\Models\Reservation;
 use App\Models\Room;
 use Carbon\Carbon;
@@ -24,68 +25,56 @@ class RoomSearch extends Component
     public $country;
     public $city;
 
-    public $start;
-    public $end;
-    public $nights = 1;
-    public $persons = 1;
-
     public $stars = 0;
 
-    protected $rooms;
+    protected $hotels;
 
     protected $query;
 
     protected $queryString = [
         'search' => ['except' => ''],
         'page' => ['except' => 1],
-        'nights' => ['except' => 1],
-        'stars' => ['except' => 0],
-        'start',
-        'end',
-        "persons" => ['except' => 1],
+        'country' => ['except' => ''],
+        'city' => ['except' => ''],
     ];
 
     public function updated($name, $value)
     {
-        if ($name == "nights")
-        {
-            $this->end = Carbon::createFromFormat("Y-m-d", $this->start)->addDays($value)->format("Y-m-d");
-        }
-
-        if ($name == "search")
+        if ( ($name == "search") || ($name == "country") || ($name == "city"))
         {
             $this->page = 1;
-        }
-
-        if ($name == "start")
-        {
-            $this->end = Carbon::createFromFormat("Y-m-d", $value)
-                ->addDays($this->nights)->format("Y-m-d");
-        }
-
-        if ($name == "end")
-        {
-            $this->nights = Carbon::createFromFormat("Y-m-d", $value)
-                ->diff(Carbon::createFromFormat("Y-m-d", $this->start))->days;
         }
     }
 
     public function mount()
     {
-        $this->fill([
-            "start" => Carbon::today()->format("Y-m-d"),
-            "nights" => 1,
-            "end" => Carbon::today()->addDays(1)->format("Y-m-d"),
-        ]);
     }
 
     public function render()
     {
-        $this->rooms = $this->rooms = Room::with("hotel")
+        /*$this->rooms = Room::with("hotel")
             ->where("hotels.name", 'like', "%$this->search%")
-            ->availableFor($this->start, $this->end, $this->persons, $this->stars)->paginate(4);
+            ->availableFor($this->start, $this->end, $this->persons, $this->stars)->paginate(4);*/
+
+        $this->hotels = Hotel::query();
+
+        if (isset($this->search) && !is_null($this->search) && $this->search != '')
+        $this->hotels
+            ->where("name", 'like', "%$this->search%")
+            ->orWhere("address", 'like', "%$this->search%");
+
+        /*if (isset($this->country) && !is_null($this->country) && $this->country != '')
+        $this->hotels
+            ->where("country", 'like', "%$this->country%");*/
+
+        if (isset($this->city) && !is_null($this->city) && $this->city != '')
+            $this->hotels
+                ->where("city", 'like', "%$this->city%");
+
+        $this->hotels = $this->hotels->get();
+
         return view('livewire.room-search', [
-            "rooms" => $this->rooms,
+            "hotels" => $this->hotels,
         ]);
     }
 }

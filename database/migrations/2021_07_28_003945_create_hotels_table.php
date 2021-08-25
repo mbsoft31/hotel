@@ -17,8 +17,8 @@ class CreateHotelsTable extends Migration
             $table->id();
             $table->string("name");
             $table->unsignedInteger("stars")->default(0);
-            $table->string("description")->nullable();
-            $table->string("address")->nullable();
+            $table->text("description")->nullable();
+            $table->text("address")->nullable();
             $table->string("country")->nullable();
             $table->string("city")->nullable();
             $table->integer("zipcode")->nullable();
