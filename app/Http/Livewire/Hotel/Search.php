@@ -288,21 +288,15 @@ class Search extends Component
         $this->available_cities = $locations->pluck("city")
             ->toArray();
 
-        //$result = $query->get();
-
         if (isset($this->country_filter) && count($this->country_filter) > 0)
         {
             $query->WhereIn('country', $this->country_filter);
-            //$result->whereIn('country', $this->country_filter);
         }
 
         if (isset($this->city_filter) && count($this->city_filter) > 0)
         {
             $query->WhereIn('city', $this->city_filter );
-            //$result->WhereIn('city', $this->city_filter );
         }
-
-        //dump($query->toSql(), $query->getBindings());
 
         return [
             "hotels" => $query->get(),

@@ -30,6 +30,11 @@ class Reservation extends Model
         return $this->belongsToMany(Room::class);
     }
 
+    public function scopeOverlapping($query, $from, $to)
+    {
+        return $query->past('start', $to, false)->future('end', $from, false);
+    }
+
     public function accept()
     {
         $this->state = "accepted";

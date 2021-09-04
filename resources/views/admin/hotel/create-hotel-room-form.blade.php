@@ -12,8 +12,8 @@
     </div>
 
     <div class="py-4 space-y-3">
-        <x-input.label for="name">{{__("Name")}}</x-input.label>
-        <x-input.text wire:model="state.name" id="name" name="name" class="w-full" placeholder="Room name"/>
+        <x-input.label for="name">{{__("Num")}}</x-input.label>
+        <x-input.text wire:model="state.name" id="name" name="name" class="w-full" placeholder="Room number"/>
         <x-input.error for="name"></x-input.error>
     </div>
 

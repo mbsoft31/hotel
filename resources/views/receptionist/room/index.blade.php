@@ -31,96 +31,13 @@
             <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                 <div class="py-4 align-middle inline-block min-w-full sm:px-6 lg:px-8">
                     <div class="py-4 shadow overflow-hidden border-b border-gray-200 sm:rounded-lg bg-white">
-                        <div class="flex items-center px-6 py-2 space-x-3">
-                            <div>
-                                {{ __("Filters") }}
-                            </div>
-                            <div class="">
-                                <div
-                                    x-data="{open: false, openDropdown(){this.open = true;}, closeDropdown(){ this.open = false; }, toggleDropdown(){ this.open = ! this.open; }, }"
-                                    class="inline-block relative"
-                                >
-                                    <button @click="openDropdown()" class="px-2 py-1.5 text-gray-500 border rounded-md hover:text-gray-700 hover:bg-gray-50">
-                                        {{ __("Stars") }}
-                                    </button>
-                                    <x-menu.menu
-                                        x-show="open"
-                                        x-transition:enter="transition ease-out duration-300"
-                                        x-transition:enter-start="opacity-0 transform scale-90"
-                                        x-transition:enter-end="opacity-100 transform scale-100"
-                                        x-transition:leave="transition ease-in duration-300"
-                                        x-transition:leave-start="opacity-100 transform scale-100"
-                                        x-transition:leave-end="opacity-0 transform scale-90"
-                                        @click.away="closeDropdown()"
-                                        class="absolute top-full left-0 w-64 px-2 py-1.5 bg-white border rounded-md" style="display: none;"
-                                    >
-                                        <x-menu.item class="px-2 py-2 text-gray-500 hover:text-gray-700 hover:bg-gray-50">
-                                            <button>none</button>
-                                        </x-menu.item>
-                                        <x-menu.item class="px-2 py-2 text-gray-500 hover:text-gray-700 hover:bg-gray-50">
-                                            <button>1 star(s)</button>
-                                        </x-menu.item>
-                                        <x-menu.item class="px-2 py-2 text-gray-500 hover:text-gray-700 hover:bg-gray-50">
-                                            <button>2 star(s)</button>
-                                        </x-menu.item>
-                                        <x-menu.item class="px-2 py-2 text-gray-500 hover:text-gray-700 hover:bg-gray-50">
-                                            <button>3 star(s)</button>
-                                        </x-menu.item>
-                                        <x-menu.item class="px-2 py-2 text-gray-500 hover:text-gray-700 hover:bg-gray-50">
-                                            <button>4 star(s)</button>
-                                        </x-menu.item>
-                                        <x-menu.item class="px-2 py-2 text-gray-500 hover:text-gray-700 hover:bg-gray-50">
-                                            <button>5 star(s)</button>
-                                        </x-menu.item>
-                                    </x-menu.menu>
-                                </div>
-                                <div
-                                    x-data="{open: false, openDropdown(){this.open = true;}, closeDropdown(){ this.open = false; }, toggleDropdown(){ this.open = ! this.open; }, }"
-                                    class="inline-block relative"
-                                >
-                                    <button @click="openDropdown()" class="px-2 py-1.5 text-gray-500 border rounded-md hover:text-gray-700 hover:bg-gray-50">
-                                        {{ __("Receptionist count") }}
-                                    </button>
-                                    <x-menu.menu
-                                        x-show="open"
-                                        x-transition:enter="transition ease-out duration-300"
-                                        x-transition:enter-start="opacity-0 transform scale-90"
-                                        x-transition:enter-end="opacity-100 transform scale-100"
-                                        x-transition:leave="transition ease-in duration-300"
-                                        x-transition:leave-start="opacity-100 transform scale-100"
-                                        x-transition:leave-end="opacity-0 transform scale-90"
-                                        @click.away="closeDropdown()"
-                                        class="absolute top-full left-0 w-64 px-2 py-1.5 bg-white border rounded-md" style="display: none;"
-                                    >
-                                        <x-menu.item class="px-2 py-2 text-gray-500 hover:text-gray-700 hover:bg-gray-50">
-                                            <button>none</button>
-                                        </x-menu.item>
-                                        <x-menu.item class="px-2 py-2 text-gray-500 hover:text-gray-700 hover:bg-gray-50">
-                                            <button>1 receptionist</button>
-                                        </x-menu.item>
-                                        <x-menu.item class="px-2 py-2 text-gray-500 hover:text-gray-700 hover:bg-gray-50">
-                                            <button>2 receptionist(s)</button>
-                                        </x-menu.item>
-                                        <x-menu.item class="px-2 py-2 text-gray-500 hover:text-gray-700 hover:bg-gray-50">
-                                            <button>3 receptionist(s)</button>
-                                        </x-menu.item>
-                                        <x-menu.item class="px-2 py-2 text-gray-500 hover:text-gray-700 hover:bg-gray-50">
-                                            <button>4 receptionist(s)</button>
-                                        </x-menu.item>
-                                        <x-menu.item class="px-2 py-2 text-gray-500 hover:text-gray-700 hover:bg-gray-50">
-                                            <button>5 receptionist(s)</button>
-                                        </x-menu.item>
-                                    </x-menu.menu>
-                                </div>
-                            </div>
-                        </div>
                         <x-table id="hotel_table">
                             <thead class="bg-gray-50">
                             <tr>
                                 <x-table.th scope="col">#</x-table.th>
-                                <x-table.th scope="col">{{ __('Name') }}</x-table.th>
+                                <x-table.th scope="col">{{ __('Number') }}</x-table.th>
                                 <x-table.th scope="col">{{ __('Type') }}</x-table.th>
-                                <x-table.th scope="col">{{ __('Rooms count') }}</x-table.th>
+                                <x-table.th scope="col">{{ __('Price') }}</x-table.th>
                                 <x-table.th scope="col">{{ __('Actions') }}</x-table.th>
                             </tr>
                             </thead>
@@ -135,7 +52,7 @@
                                         <span class="text-lg font-semibold">{{$room->roomType->name}}</span>
                                     </x-table.td>
                                     <x-table.td class="whitespace-normal">
-                                        <p>{{$room->rooms_count}}</p>
+                                        <p>{{$room->room_price_x_person}}</p>
                                     </x-table.td>
                                     <x-table.td class="whitespace-normal">
                                         <div class="inline-flex items-center space-x-2">

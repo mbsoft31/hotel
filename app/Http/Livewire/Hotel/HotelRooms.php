@@ -9,12 +9,14 @@ use App\Models\Room;
 use App\Models\User;
 use Booking\Interfaces\Receptionist\CreateReceptionist;
 use Carbon\Carbon;
+use Carbon\CarbonImmutable;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Livewire\Component;
@@ -24,14 +26,14 @@ class HotelRooms extends Component
 
     public Hotel $hotel;
 
-    public $show = "rooms_informations";
+    public $show = "reservation_informations";
     public $error = null;
 
     public array $state = [];
 
     public $start;
     public $end;
-    public int $nights = 3;
+    public int $nights = 1;
     public int $persons = 1;
     public int $rooms_count = 1;
     public $total_capacity = 0;
@@ -172,7 +174,7 @@ class HotelRooms extends Component
             "nights" => $this->nights,
             "rooms_count" => $rooms->count(),
             "end" => $this->end,
-            "room_id" => $rooms->pop(),
+            "room_id" => $rooms->first(),
             "guest_id" => Auth::user()->guest->id,
         ]);
 
@@ -206,6 +208,9 @@ class HotelRooms extends Component
             $this->state["existing_user"] = true;
             $this->state["user_id"] = Auth::id();
         }
+
+        $this->start = CarbonImmutable::today()->format('Y-m-d');
+        $this->end = CarbonImmutable::today()->addDays($this->nights)->format('Y-m-d');
     }
 
     public function render()
@@ -219,6 +224,35 @@ class HotelRooms extends Component
 
     public function query()
     {
-        return $this->hotel->rooms();
+
+        $start = $this->start;
+        $end = $this->end;
+
+        $rooms = $this->hotel->rooms;
+
+        $reservations = Reservation::query()
+            ->with("rooms")
+            ->whereIn('id',
+                Reservation::query()
+                    ->whereIn(
+                        "room_id", $rooms->pluck('id')->toArray()
+                    )
+                    ->overlapping( $start, $end)
+                    ->get(['id'])
+                    ->pluck('id')
+                    ->toArray()
+            )
+            ->get()->pluck('id')->toArray();
+
+        $reserved_rooms = DB::table("reservation_room")
+            ->select(["room_id"])
+            ->whereIn('reservation_id', $reservations)
+            ->get()
+            ->pluck("room_id")
+            ->toArray();
+
+        // dd($rooms, $start->format("Y-m-d"), $end->format("Y-m-d"), $reservations, $reserved_rooms);
+
+        return $this->hotel->rooms()->whereNotIn("rooms.id", $reserved_rooms);
     }
 }

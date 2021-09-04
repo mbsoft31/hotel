@@ -9,6 +9,12 @@ Route::get('/', function () {
     return view("home-page");
 });
 
+Route::get('/profile', function () {
+    return view("profile.show", [
+        "user" => Auth::user()
+    ]);
+})->middleware("auth")->name("profile");
+
 Route::get("/dashboard", function () {
     if (Auth::user()->hasRole("admin"))
         return redirect()->route("admin.hotel.index");

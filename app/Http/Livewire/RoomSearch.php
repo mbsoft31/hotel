@@ -58,10 +58,14 @@ class RoomSearch extends Component
 
         $this->hotels = Hotel::query();
 
+        if (isset($this->stars) && !is_null($this->stars) && $this->stars != 0)
+            $this->hotels
+                ->where("stars", "$this->stars");
+
         if (isset($this->search) && !is_null($this->search) && $this->search != '')
-        $this->hotels
-            ->where("name", 'like', "%$this->search%")
-            ->orWhere("address", 'like', "%$this->search%");
+            $this->hotels
+                ->where("name", 'like', "%$this->search%")
+                ->orWhere("address", 'like', "%$this->search%");
 
         /*if (isset($this->country) && !is_null($this->country) && $this->country != '')
         $this->hotels

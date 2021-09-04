@@ -11,10 +11,4 @@
             {{ __("Receptionist") }}
         </a>
     </x-menu.item>
-    <x-menu.item class="group space-x-3">
-        <i class="fas fa-user-friends text-2xl text-gray-500 group-hover:text-purple-700"></i>
-        <a href="#" class="block flex-grow px-4 py-3 text-gray-600 hover:text-gray-900 hover:bg-purple-50">
-            {{ __("Guests") }}
-        </a>
-    </x-menu.item>
 </x-menu.menu>

@@ -63,27 +63,6 @@ class RoleSeeder extends Seeder
         $receptionistRole->givePermissionTo("deny reservation");
         $receptionistRole->givePermissionTo("destroy reservation");
 
-        $admin = User::factory()->afterCreating(function ($model) {
-            $model->assignRole("admin");
-        })->create([
-            "email" => "admin@mail.com",
-            "password" => Hash::make("admin1234"),
-        ]);
 
-        /*Receptionist::factory()
-            ->count(10)
-            ->afterCreating(function ($model) {
-                $model->user->assignRole("receptionist");
-                $model->user->password = Hash::make("password");
-                $model->user->save();
-            })->create();*/
-
-        /*Guest::factory()
-            ->count(10)
-            ->afterCreating(function ($model) {
-                $model->user->assignRole("guest");
-                $model->user->password = Hash::make("password");
-                $model->user->save();
-            })->create();*/
     }
 }

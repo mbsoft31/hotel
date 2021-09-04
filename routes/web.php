@@ -59,13 +59,12 @@ Route::prefix("/admin")->middleware(["auth", "role:admin"])->name("admin.")->gro
 Route::prefix("/receptionist")->middleware(["auth", "role:receptionist"])->name("receptionist.")->group( function () {
 
     Route::get("room", function (){
-        $receptionist = Auth::user()->receptionist ?? null;
-        $hotel = $receptionist->hotel->first() ?? null;
-        return view("receptionist.room.index", array_merge(compact("hotel", "receptionist"), [
-            "rooms" => $hotel->rooms ?? [],
+        $hotel = Auth::user()->receptionist->hotel()->firstOrFail();
+        return view("receptionist.room.index", array_merge(compact("hotel", ), [
+            "receptionist" => Auth::user()->receptionist,
+            "rooms" => $hotel->rooms,
         ]));
-    })
-        ->name("room.index");
+    })->name("room.index");
 
     Route::get("room/create", [\App\Http\Controllers\RoomController::class, "create"])
         ->name("room.create");
